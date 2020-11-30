@@ -22,7 +22,7 @@ class AppFixtures extends Fixture
     {
         $faker = Factory::create();
 
-        for ($user = 0; $user < 10; $user++) {
+        for ($u = 0; $u < 10; $u++) {
             $user = new User();
 
             $passHash = $this->encoder->encodePassword($user, 'password');
@@ -32,12 +32,15 @@ class AppFixtures extends Fixture
 
             $manager->persist($user);
 
-            for ($article = 0; $article < random_int(5, 15); $article++) {
-                $article = (new Article())->setAuthor($user)
-                    ->setContent($faker->text(300))
-                    ->setName($faker->text(50));
+            try {
+                for ($a = 0; $a < random_int(5, 15); $a++) {
+                    $article = (new Article())->setAuthor($user)
+                        ->setContent($faker->text(300))
+                        ->setName($faker->text(50));
 
-                $manager->persist($article);
+                    $manager->persist($article);
+                }
+            } catch (\Exception $e) {
             }
 
         }
