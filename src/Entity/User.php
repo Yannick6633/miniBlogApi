@@ -17,7 +17,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  *
  * @ApiResource()
  */
-class User extends \App\Entity\Article implements UserInterface
+class User implements UserInterface
 {
     use ResourceId;
     use Timestampable;
