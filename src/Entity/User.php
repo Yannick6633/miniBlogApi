@@ -10,12 +10,32 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
- * @ORM\Table(name="`user`")
  *
- * @ApiResource()
+ * @ApiResource(
+ *     attributes={
+ *          "force_eager"=false,
+ *          "normalization_context"={"groups"={"list"}},
+ *          "denormalization_context"={"groups"={"write"}}
+ *     },
+ *     collectionOperations={
+ *          "get"={
+ *              "normalization_context"={"groups"={"list_user"}}
+ *          },
+ *          "post"
+ *      },
+ *     itemOperations={
+ *          "get"={
+ *              "normalization_context"={"groups"={"details_user"}}
+ *          },
+ *          "put",
+ *          "patch",
+ *          "delete"
+ *      }
+ * )
  */
 class User implements UserInterface
 {
@@ -24,6 +44,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Groups({"list_user", "details_user", "details_article"})
      */
     private string $email;
 
@@ -40,6 +61,7 @@ class User implements UserInterface
 
     /**
      * @ORM\OneToMany(targetEntity=Article::class, mappedBy="author", orphanRemoval=true)
+     * @Groups({"details_user"})
      */
     private Collection $articles;
 

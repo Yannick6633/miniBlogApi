@@ -7,11 +7,32 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\ArticleRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=ArticleRepository::class)
  *
- * @ApiResource()
+ * @ApiResource(
+ *     attributes={
+ *          "force_eager"=false,
+ *          "normalization_context"={"groups"={"list"}},
+ *          "denormalization_context"={"groups"={"write"}}
+ *     },
+ *     collectionOperations={
+ *          "get"={
+ *              "normalization_context"={"groups"={"list_article"}}
+ *          },
+ *          "post"
+ *      },
+ *     itemOperations={
+ *          "get"={
+ *              "normalization_context"={"groups"={"details_article"}}
+ *          },
+ *          "put",
+ *          "patch",
+ *          "delete"
+ *      }
+ * )
  */
 class Article
 {
@@ -20,17 +41,21 @@ class Article
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"list_article", "details_user", "details_article"})
      */
     private string $name;
 
     /**
      * @ORM\Column(type="text")
+     * @Groups({"list_article", "details_user", "details_article"})
      */
     private string $content;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="articles")
      * @ORM\JoinColumn(nullable=false)
+     *
+     * @Groups({"details_article"})
      */
     private User $author;
 
@@ -71,7 +96,6 @@ class Article
     public function setAuthor(User $author): self
     {
         $this->author = $author;
-
         return $this;
     }
 }
