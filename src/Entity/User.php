@@ -17,11 +17,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @ORM\HasLifecycleCallbacks()
  *
  * @ApiResource(
- *     attributes={
- *          "force_eager"=false,
- *          "normalization_context"={"groups"={"list"}},
- *          "denormalization_context"={"groups"={"write"}}
- *     },
  *     collectionOperations={
  *          "get"={
  *              "normalization_context"={"groups"={"list_user"}}
