@@ -14,6 +14,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @ORM\HasLifecycleCallbacks()
  *
  * @ApiResource(
  *     attributes={
@@ -69,7 +70,7 @@ class User implements UserInterface
     {
         $this->articles = new ArrayCollection();
 
-        $this->createdAt = new \DateTimeImmutable();
+        //$this->createdAt = new \DateTimeImmutable();
     }
 
     public function getEmail(): ?string

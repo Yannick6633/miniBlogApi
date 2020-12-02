@@ -8,9 +8,11 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\ArticleRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use App\Controller\ArticleUpdatedAt;
 
 /**
  * @ORM\Entity(repositoryClass=ArticleRepository::class)
+ * @ORM\HasLifecycleCallbacks()
  *
  * @ApiResource(
  *     attributes={
@@ -30,7 +32,12 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *          },
  *          "put",
  *          "patch",
- *          "delete"
+ *          "delete",
+ *          "put_updated_at"={
+                "method"="PUT",
+ *              "path"="/articles/{id}/updated_at",
+ *              "controller"=ArticleUpdatedAt::class,
+ *          }
  *      }
  * )
  */
@@ -61,7 +68,7 @@ class Article
 
     public function __construct()
     {
-        $this->createdAt = new \DateTimeImmutable();
+        //$this->createdAt = new \DateTimeImmutable();
     }
 
     public function getName(): ?string
