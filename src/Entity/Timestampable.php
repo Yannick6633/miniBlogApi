@@ -63,9 +63,7 @@ trait Timestampable
         return $this;
     }
 
-    /**
-     * @orm
-     */
+
     public function updateTimestamps(): void
     {
         $now = new \DateTimeImmutable();
