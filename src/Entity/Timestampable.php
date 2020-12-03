@@ -26,18 +26,13 @@ trait Timestampable
      */
     private ?\DateTimeInterface $updatedAt;
 
-    /**
-     * @return DateTimeInterface|null
-     */
-    public function getCreatedAt(): ?\DateTimeInterface
+
+    public function getCreatedAt(): DateTimeInterface
     {
-        return $this->createdAt ?? new \DateTimeImmutable();
+        return $this->createdAt;
     }
 
-    /**
-     * @param DateTimeInterface $createdAt
-     * @return $this
-     */
+
     public function setCreatedAt(DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
@@ -45,18 +40,13 @@ trait Timestampable
         return $this;
     }
 
-    /**
-     * @return DateTimeInterface|null
-     */
+
     public function getUpdatedAt(): ?\DateTimeInterface
     {
-        return $this->updatedAt ?? new \DateTimeImmutable();
+        return $this->updatedAt;
     }
 
-    /**
-     * @param DateTimeInterface|null $updatedAt
-     * @return $this
-     */
+
     public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
