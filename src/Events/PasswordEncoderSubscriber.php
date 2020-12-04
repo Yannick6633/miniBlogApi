@@ -11,7 +11,7 @@ use Symfony\Component\HttpKernel\Event\ViewEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
-class PassordEncoderSubscriber implements EventSubscriberInterface
+class PasswordEncoderSubscriber implements EventSubscriberInterface
 {
    private UserPasswordEncoderInterface $encoder;
 
